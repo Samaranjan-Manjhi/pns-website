@@ -285,4 +285,21 @@
     });
     render(location.hash, /^#(photos|videos)/.test(location.hash));
   })();
+
+  /* ---------- "What we make": use the picture from images/products/ when there is one ---------- */
+  (function () {
+    var pics = (window.GALLERY && window.GALLERY.products) || {};
+    document.querySelectorAll(".swatch[data-product]").forEach(function (sw) {
+      var src = pics[sw.getAttribute("data-product")];
+      if (!src) return; // no picture yet: keep the drawn pattern
+      var img = document.createElement("img");
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.addEventListener("load", function () { sw.classList.add("has-img"); });
+      img.addEventListener("error", function () { img.remove(); });
+      img.src = src;
+      sw.appendChild(img);
+    });
+  })();
 })();
