@@ -62,7 +62,10 @@ section[id] { scroll-margin-top: 4.5rem; }
 }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
 .brand { display: flex; align-items: center; gap: 0.65rem; font: 700 1.15rem/1 var(--f-display); color: var(--ink); text-decoration: none; }
-.brand svg { width: 30px; height: 30px; flex: none; }
+.brand img { width: 44px; height: 44px; flex: none; border-radius: 8px; display: block; }
+.footer-inner { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.footer-logo { width: 150px; height: 150px; border-radius: 10px; }
+.footer-inner p { margin: 0; }
 .nav { display: none; gap: 1.6rem; }
 .nav a { color: var(--ink); text-decoration: none; font: 500 0.95rem var(--f-display); }
 .nav a:hover { text-decoration: underline; text-underline-offset: 0.35em; }
