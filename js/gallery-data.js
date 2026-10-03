@@ -6,8 +6,8 @@ window.GALLERY = {
       "label": "Curtains",
       "photos": [
         {
-          "src": "images/gallery/curtains/Curtain_Blind1.jpg",
-          "title": "Curtain Blind1"
+          "src": "images/gallery/curtains/curtain.jpg",
+          "title": "Curtain"
         },
         {
           "src": "images/gallery/curtains/Curtain_Blind2.jpg",
@@ -37,6 +37,10 @@ window.GALLERY = {
       "label": "Roller blinds",
       "photos": [
         {
+          "src": "images/gallery/roller/roller.jpg",
+          "title": "Roller"
+        },
+        {
           "src": "images/gallery/roller/roller_blind4.jpg",
           "title": "Roller blind4"
         },
@@ -51,10 +55,6 @@ window.GALLERY = {
         {
           "src": "images/gallery/roller/roller_blind7.jpg",
           "title": "Roller blind7"
-        },
-        {
-          "src": "images/gallery/roller/roller_blind1.jpg",
-          "title": "Roller blind1"
         },
         {
           "src": "images/gallery/roller/roller_blind2.jpg",
@@ -72,8 +72,8 @@ window.GALLERY = {
       "label": "Roman blinds",
       "photos": [
         {
-          "src": "images/gallery/roman/roman_blind1.jpg",
-          "title": "Roman blind1"
+          "src": "images/gallery/roman/roman.jpg",
+          "title": "Roman"
         }
       ],
       "videos": []
@@ -83,8 +83,8 @@ window.GALLERY = {
       "label": "Sun control and decorative film",
       "photos": [
         {
-          "src": "images/gallery/film/Design_Film_1.jpg",
-          "title": "Design Film"
+          "src": "images/gallery/film/film.jpg",
+          "title": "Film"
         }
       ],
       "videos": []
@@ -94,8 +94,8 @@ window.GALLERY = {
       "label": "Monsoon",
       "photos": [
         {
-          "src": "images/gallery/monsoon/monsoon_blind1.jpg",
-          "title": "Monsoon blind1"
+          "src": "images/gallery/monsoon/monsoon.jpg",
+          "title": "Monsoon"
         }
       ],
       "videos": []
@@ -105,16 +105,16 @@ window.GALLERY = {
       "label": "Wooden",
       "photos": [
         {
+          "src": "images/gallery/wooden/wooden.jpg",
+          "title": "Wooden"
+        },
+        {
           "src": "images/gallery/wooden/Wooden_Blind_5.jpg",
           "title": "Wooden Blind"
         },
         {
           "src": "images/gallery/wooden/wooden_blind1.jpg",
           "title": "Wooden blind1"
-        },
-        {
-          "src": "images/gallery/wooden/wooden_blind2.jpg",
-          "title": "Wooden blind2"
         },
         {
           "src": "images/gallery/wooden/wooden_blind3.jpg",
@@ -127,5 +127,6 @@ window.GALLERY = {
       ],
       "videos": []
     }
-  ]
+  ],
+  "products": {}
 };
