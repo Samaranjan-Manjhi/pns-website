@@ -1,0 +1,37 @@
+name: Update gallery
+
+# Runs whenever you push photos or video links. It rebuilds js/gallery-data.js and commits it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "images/gallery/**"
+      - "videos/**"
+      - "scripts/build-gallery.js"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/build-gallery.js
+      - name: Commit the updated gallery list
+        run: |
+          if [ -n "$(git status --porcelain js/gallery-data.js)" ]; then
+            git config user.name "gallery-bot"
+            git config user.email "gallery-bot@users.noreply.github.com"
+            git add js/gallery-data.js
+            git commit -m "Update gallery list"
+            git push
+          else
+            echo "Gallery list already up to date."
+          fi

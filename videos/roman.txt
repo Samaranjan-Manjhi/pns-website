@@ -1,0 +1,4 @@
+# Paste YouTube links for this section, one per line. Lines starting with # are ignored.
+# Optional title after a | sign. Examples:
+# https://www.youtube.com/watch?v=AbC123xyz89 | Motorized curtain demo
+# https://www.youtube.com/shorts/AbC123xyz89
