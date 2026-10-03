@@ -2,21 +2,40 @@
 window.GALLERY = {
   "categories": [
     {
+      "key": "curtains",
+      "label": "Curtains",
+      "photos": [
+        {
+          "src": "images/gallery/curtains/Curtain_Blind1.jpg",
+          "title": "Curtain Blind1"
+        },
+        {
+          "src": "images/gallery/curtains/Curtain_Blind2.jpg",
+          "title": "Curtain Blind2"
+        },
+        {
+          "src": "images/gallery/curtains/Curtain_Blind3.jpg",
+          "title": "Curtain Blind3"
+        },
+        {
+          "src": "images/gallery/curtains/Curtain_Blind4.jpg",
+          "title": "Curtain Blind4"
+        },
+        {
+          "src": "images/gallery/curtains/Curtain_Blind5.jpg",
+          "title": "Curtain Blind5"
+        },
+        {
+          "src": "images/gallery/curtains/Curtain_Blind6.jpg",
+          "title": "Curtain Blind6"
+        }
+      ],
+      "videos": []
+    },
+    {
       "key": "roller",
       "label": "Roller blinds",
       "photos": [
-        {
-          "src": "images/gallery/roller/roller_blind1.jpg",
-          "title": "Roller blind1"
-        },
-        {
-          "src": "images/gallery/roller/roller_blind2.jpg",
-          "title": "Roller blind2"
-        },
-        {
-          "src": "images/gallery/roller/roller_blind3.jpg",
-          "title": "Roller blind3"
-        },
         {
           "src": "images/gallery/roller/roller_blind4.jpg",
           "title": "Roller blind4"
@@ -28,6 +47,44 @@ window.GALLERY = {
         {
           "src": "images/gallery/roller/roller_blind6.jpg",
           "title": "Roller blind6"
+        },
+        {
+          "src": "images/gallery/roller/roller_blind7.jpg",
+          "title": "Roller blind7"
+        },
+        {
+          "src": "images/gallery/roller/roller_blind1.jpg",
+          "title": "Roller blind1"
+        },
+        {
+          "src": "images/gallery/roller/roller_blind2.jpg",
+          "title": "Roller blind2"
+        },
+        {
+          "src": "images/gallery/roller/roller_blind3.jpg",
+          "title": "Roller blind3"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "key": "roman",
+      "label": "Roman blinds",
+      "photos": [
+        {
+          "src": "images/gallery/roman/roman_blind1.jpg",
+          "title": "Roman blind1"
+        }
+      ],
+      "videos": []
+    },
+    {
+      "key": "film",
+      "label": "Sun control and decorative film",
+      "photos": [
+        {
+          "src": "images/gallery/film/Design_Film_1.jpg",
+          "title": "Design Film"
         }
       ],
       "videos": []
@@ -47,6 +104,10 @@ window.GALLERY = {
       "key": "wooden",
       "label": "Wooden",
       "photos": [
+        {
+          "src": "images/gallery/wooden/Wooden_Blind_5.jpg",
+          "title": "Wooden Blind"
+        },
         {
           "src": "images/gallery/wooden/wooden_blind1.jpg",
           "title": "Wooden blind1"
