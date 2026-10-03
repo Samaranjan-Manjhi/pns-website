@@ -10,7 +10,9 @@ pns-website/
   videos/<product>.txt        YOUR VIDEOS: YouTube links, one per line
   js/gallery-data.js          built automatically from the two above (do not edit)
   js/main.js                  behavior (leave alone)
+  images/products/            ONE picture per product for the "What we make" list
   scripts/build-gallery.js    the builder that GitHub runs on every push
+  scripts/optimize-images.js  shrinks big photos (GitHub runs it on every push)
   .github/workflows/          tells GitHub to run the builder
 ```
 
@@ -74,6 +76,10 @@ Never put video files in the site. They are too big for free hosting.
 **What visitors see.** Each product with photos gets a block in "Our work". Under its photos is a link to that product's videos. All videos also sit together in the "Videos" block below. Products with nothing yet stay hidden.
 
 **How it updates.** When you push, GitHub runs `.github/workflows/gallery.yml`, which rebuilds `js/gallery-data.js` and commits it. Wait about a minute, then run `git pull` before your next change so you have the bot's update. For this to work, go to your repository Settings, Actions, General, Workflow permissions, and choose "Read and write permissions".
+
+**Product pictures ("What we make").** Put one picture per product in `images/products/`, named after the product: `motorized`, `curtains`, `roller`, `roman`, `vertical`, `honeycomb`, `chick`, `skylight`, `awning`, `film` (jpg, png or webp, lowercase, no spaces). Square pictures about 400 x 400 px look best. A product with no picture keeps its drawn pattern.
+
+**Big photos shrink automatically.** On every push GitHub resizes photos to at most 1600 px, compresses them, fixes sideways phone photos and removes hidden GPS data. Keep your original photos on your computer, because the copy in the repo is replaced by the small one.
 
 **To preview on your computer** (needs Node.js): run `node scripts/build-gallery.js`, then open `index.html`.
 

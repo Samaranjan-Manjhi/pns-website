@@ -50,10 +50,11 @@ function titleFromFile(name) {
   return t ? t.charAt(0).toUpperCase() + t.slice(1) : "";
 }
 
-// When was this file added? Newest photos are shown first.
+// When was this file first added to the repo? Newest photos are shown first.
+// (Shrinking a photo later does not change its place in the order.)
 function addedTime(file) {
   try {
-    const out = execSync('git log -1 --format=%ct -- "' + file + '"', { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
+    const out = execSync('git log --diff-filter=A -1 --format=%ct -- "' + file + '"', { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
     if (out) return parseInt(out, 10) * 1000;
   } catch (e) { /* not a git repo, or file not committed yet */ }
   return fs.statSync(file).mtimeMs;
