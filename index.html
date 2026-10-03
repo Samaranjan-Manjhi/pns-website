@@ -51,7 +51,6 @@
       <a href="#motorized">Motorized</a>
       <a href="#repairs">Repairs</a>
       <a href="#work">Our work</a>
-      <a href="#videos" id="nav-videos" hidden>Videos</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
@@ -226,22 +225,12 @@
     </div>
   </section>
 
-  <!-- Photos: one block per product, filled from js/gallery-data.js -->
+  <!-- Our work: Photos / Videos -> products -> items (filled from js/gallery-data.js) -->
   <section class="section" id="work">
     <div class="wrap">
       <h2>Our work</h2>
-      <p class="intro">Photos from recent jobs, sorted by product. Tap any photo to enlarge it.</p>
-      <nav class="filters" id="jump" aria-label="Jump to a product"></nav>
-      <div id="photo-sections"></div>
-    </div>
-  </section>
-
-  <!-- Videos: one block per product -->
-  <section class="section band band--tint" id="videos">
-    <div class="wrap">
-      <h2>Videos</h2>
-      <p class="intro">See our blinds and curtains in action. Tap a video to play it.</p>
-      <div id="video-sections"></div>
+      <p class="intro" id="work-intro">Photos and videos from recent jobs.</p>
+      <div id="work-view" aria-live="polite"></div>
     </div>
   </section>
 

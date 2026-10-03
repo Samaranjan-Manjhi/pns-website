@@ -73,22 +73,18 @@
     });
   })();
 
-  /* ---------- Gallery: photo sections and video sections, built from js/gallery-data.js ---------- */
+  /* ---------- Our work: Photos / Videos -> products -> items. Built from js/gallery-data.js ---------- */
   (function () {
     var cats = (window.GALLERY && Array.isArray(window.GALLERY.categories)) ? window.GALLERY.categories : [];
-    var photoRoot = document.getElementById("photo-sections");
-    var videoRoot = document.getElementById("video-sections");
-    var jump = document.getElementById("jump");
-    var videoBand = document.getElementById("videos");
+    var root = document.getElementById("work-view");
+    var intro = document.getElementById("work-intro");
+    var section = document.getElementById("work");
     var navVideos = document.getElementById("nav-videos");
-    if (!photoRoot) return;
+    if (!root) return;
 
-    var FIRST = 9; // photos shown before "Show all"
     var withPhotos = cats.filter(function (c) { return c.photos && c.photos.length; });
     var withVideos = cats.filter(function (c) { return c.videos && c.videos.length; });
-    var vidByKey = {}, photoByKey = {};
-    withVideos.forEach(function (c) { vidByKey[c.key] = c; });
-    withPhotos.forEach(function (c) { photoByKey[c.key] = c; });
+    var total = function (list, f) { return list.reduce(function (n, c) { return n + c[f].length; }, 0); };
 
     function el(tag, cls, text) {
       var n = document.createElement(tag);
@@ -97,6 +93,8 @@
       return n;
     }
     function plural(n, word) { return n + " " + word + (n === 1 ? "" : "s"); }
+    function ytThumb(id) { return "https://i.ytimg.com/vi/" + encodeURIComponent(id) + "/hqdefault.jpg"; }
+    function find(list, key) { for (var i = 0; i < list.length; i++) if (list[i].key === key) return list[i]; return null; }
 
     /* ----- Viewer (photos and videos) ----- */
     var lb = document.getElementById("lightbox");
@@ -145,6 +143,32 @@
       });
     }
 
+    /* ----- Building blocks ----- */
+    // A big picture card that links to another view
+    function card(cls, href, imgSrc, title, sub, withPlay) {
+      var a = el("a", cls);
+      a.href = href;
+      if (imgSrc) {
+        var img = document.createElement("img");
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = "";
+        img.src = imgSrc;
+        img.addEventListener("error", function () { img.remove(); });
+        a.appendChild(img);
+      }
+      if (withPlay) {
+        var play = el("span", "play");
+        play.innerHTML = "<i></i>";
+        a.appendChild(play);
+      }
+      var txt = el("span", "card-text");
+      txt.appendChild(el("strong", "", title));
+      txt.appendChild(el("span", "", sub));
+      a.appendChild(txt);
+      return a;
+    }
+
     function tile(items, idx, label, isVideo) {
       var it = items[idx];
       var fig = el("figure", "tile" + (isVideo ? " tile--video" : ""));
@@ -156,7 +180,7 @@
       img.loading = "lazy";
       img.decoding = "async";
       img.alt = isVideo ? "" : name;
-      img.src = isVideo ? "https://i.ytimg.com/vi/" + encodeURIComponent(it.youtube) + "/hqdefault.jpg" : it.src;
+      img.src = isVideo ? ytThumb(it.youtube) : it.src;
       img.addEventListener("error", function () { if (fig.parentNode) fig.parentNode.removeChild(fig); });
       btn.appendChild(img);
       if (isVideo) {
@@ -170,79 +194,95 @@
       return fig;
     }
 
-    /* ----- Photo sections ----- */
-    withPhotos.forEach(function (c) {
-      var box = el("div", "cat");
-      box.id = "photos-" + c.key;
-      var h = el("h3", "", c.label);
-      h.appendChild(el("span", "count", plural(c.photos.length, "photo")));
-      box.appendChild(h);
+    function back(href, text) {
+      var a = el("a", "back", "\u2190 " + text);
+      a.href = href;
+      return a;
+    }
+    function crossLink(href, text) {
+      var p = el("p", "cross");
+      var a = el("a", "", text);
+      a.href = href;
+      p.appendChild(a);
+      return p;
+    }
 
-      var grid = el("div", "grid");
-      c.photos.forEach(function (p, idx) {
-        var t = tile(c.photos, idx, c.label, false);
-        if (idx >= FIRST) t.hidden = true;
-        grid.appendChild(t);
+    /* ----- Views ----- */
+    function home() {
+      intro.textContent = "Photos and videos from recent jobs. Choose what you would like to see.";
+      var grid = el("div", "type-grid");
+      if (withPhotos.length) {
+        grid.appendChild(card("type-card", "#photos", withPhotos[0].photos[0].src, "Photos",
+          plural(total(withPhotos, "photos"), "photo") + " in " + plural(withPhotos.length, "section"), false));
+      }
+      if (withVideos.length) {
+        grid.appendChild(card("type-card", "#videos", ytThumb(withVideos[0].videos[0].youtube), "Videos",
+          plural(total(withVideos, "videos"), "video") + " in " + plural(withVideos.length, "section"), true));
+      }
+      if (!grid.children.length) {
+        root.appendChild(el("p", "empty", "New photos and videos coming soon. Message us on WhatsApp to see recent work."));
+      } else {
+        root.appendChild(grid);
+      }
+    }
+
+    function typeList(type) {
+      var isVideo = type === "videos";
+      var set = isVideo ? withVideos : withPhotos;
+      var f = isVideo ? "videos" : "photos";
+      intro.textContent = isVideo ? "Choose a product to see its videos." : "Choose a product to see its photos.";
+      root.appendChild(back("#work", "Our work"));
+      root.appendChild(el("h3", "view-title", isVideo ? "Videos" : "Photos"));
+      var grid = el("div", "cat-grid");
+      set.forEach(function (c) {
+        var cover = isVideo ? ytThumb(c.videos[0].youtube) : c.photos[0].src;
+        grid.appendChild(card("cat-card", "#" + type + "/" + encodeURIComponent(c.key), cover, c.label,
+          plural(c[f].length, isVideo ? "video" : "photo"), isVideo));
       });
-      box.appendChild(grid);
+      root.appendChild(grid);
+    }
 
-      if (c.photos.length > FIRST) {
-        var more = el("button", "chip more", "Show all " + c.photos.length + " photos");
-        more.type = "button";
-        more.addEventListener("click", function () {
-          grid.querySelectorAll("figure[hidden]").forEach(function (f) { f.hidden = false; });
-          more.remove();
-        });
-        box.appendChild(more);
+    function category(type, c) {
+      var isVideo = type === "videos";
+      var items = isVideo ? c.videos : c.photos;
+      intro.textContent = isVideo ? "Tap a video to play it." : "Tap any photo to enlarge it.";
+      root.appendChild(back("#" + type, isVideo ? "All video sections" : "All photo sections"));
+      var h = el("h3", "view-title", c.label);
+      h.appendChild(el("span", "count", plural(items.length, isVideo ? "video" : "photo")));
+      root.appendChild(h);
+      var grid = el("div", isVideo ? "vgrid" : "grid");
+      items.forEach(function (_, idx) { grid.appendChild(tile(items, idx, c.label, isVideo)); });
+      root.appendChild(grid);
+      var other = isVideo ? c.photos : c.videos;
+      if (other && other.length) {
+        var t = isVideo ? "photos" : "videos";
+        root.appendChild(crossLink("#" + t + "/" + encodeURIComponent(c.key),
+          (isVideo ? "See " : "Watch ") + c.label.toLowerCase() + " " + t + " (" + other.length + ")"));
       }
+    }
 
-      var v = vidByKey[c.key];
-      if (v) {
-        var p = el("p", "cross");
-        var a = el("a", "", "Watch " + c.label.toLowerCase() + " videos (" + v.videos.length + ")");
-        a.href = "#videos-" + c.key;
-        p.appendChild(a);
-        box.appendChild(p);
+    function render(hash, scroll) {
+      var m = /^#(photos|videos)(?:\/(.+))?$/.exec(hash || "");
+      root.textContent = "";
+      var type = m && m[1];
+      var set = type === "videos" ? withVideos : withPhotos;
+      if (type && set.length) {
+        var key = m[2] ? decodeURIComponent(m[2]) : "";
+        var c = key ? find(set, key) : null;
+        if (c) category(type, c); else typeList(type);
+      } else {
+        home();
       }
-      photoRoot.appendChild(box);
+      if (scroll && section) section.scrollIntoView();
+    }
+
+    if (navVideos) navVideos.hidden = true; // videos are inside Our work now
+
+    window.addEventListener("hashchange", function () {
+      var h = location.hash;
+      if (/^#(photos|videos)(\/|$)/.test(h)) render(h, true);
+      else if (h === "#work") render("", false);
     });
-
-    if (jump && withPhotos.length > 1) {
-      withPhotos.forEach(function (c) {
-        var a = el("a", "chip", c.label);
-        a.href = "#photos-" + c.key;
-        jump.appendChild(a);
-      });
-    }
-
-    if (!withPhotos.length) {
-      photoRoot.appendChild(el("p", "empty", "New photos coming soon. Message us on WhatsApp to see recent work."));
-    }
-
-    /* ----- Video sections ----- */
-    if (videoRoot && withVideos.length) {
-      withVideos.forEach(function (c) {
-        var box = el("div", "cat");
-        box.id = "videos-" + c.key;
-        var h = el("h3", "", c.label);
-        h.appendChild(el("span", "count", plural(c.videos.length, "video")));
-        box.appendChild(h);
-        var grid = el("div", "vgrid");
-        c.videos.forEach(function (_, idx) { grid.appendChild(tile(c.videos, idx, c.label, true)); });
-        box.appendChild(grid);
-        if (photoByKey[c.key]) {
-          var p = el("p", "cross");
-          var a = el("a", "", "See " + c.label.toLowerCase() + " photos");
-          a.href = "#photos-" + c.key;
-          p.appendChild(a);
-          box.appendChild(p);
-        }
-        videoRoot.appendChild(box);
-      });
-    } else {
-      if (videoBand) videoBand.hidden = true;
-      if (navVideos) navVideos.hidden = true;
-    }
-    if (navVideos && withVideos.length) navVideos.hidden = false;
+    render(location.hash, /^#(photos|videos)/.test(location.hash));
   })();
 })();
