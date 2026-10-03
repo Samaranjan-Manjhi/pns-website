@@ -41,8 +41,6 @@ window.GALLERY = {
           "title": "Roller"
         },
         {
-<<<<<<< HEAD
-=======
           "src": "images/gallery/roller/roller_blind7.jpg",
           "title": "Roller blind7"
         },
@@ -55,7 +53,6 @@ window.GALLERY = {
           "title": "Roller blind3"
         },
         {
->>>>>>> 7dd5b3c (Complete update)
           "src": "images/gallery/roller/roller_blind4.jpg",
           "title": "Roller blind4"
         },
@@ -66,21 +63,6 @@ window.GALLERY = {
         {
           "src": "images/gallery/roller/roller_blind6.jpg",
           "title": "Roller blind6"
-<<<<<<< HEAD
-        },
-        {
-          "src": "images/gallery/roller/roller_blind7.jpg",
-          "title": "Roller blind7"
-        },
-        {
-          "src": "images/gallery/roller/roller_blind2.jpg",
-          "title": "Roller blind2"
-        },
-        {
-          "src": "images/gallery/roller/roller_blind3.jpg",
-          "title": "Roller blind3"
-=======
->>>>>>> 7dd5b3c (Complete update)
         }
       ],
       "videos": []
@@ -146,9 +128,6 @@ window.GALLERY = {
       "videos": []
     }
   ],
-<<<<<<< HEAD
-  "products": {}
-=======
   "products": {
     "chick": "images/products/chick.jpg?v=bbf775cb",
     "curtains": "images/products/curtains.jpg?v=a7e146de",
@@ -156,5 +135,4 @@ window.GALLERY = {
     "roller": "images/products/roller.jpg?v=09a35d70",
     "roman": "images/products/roman.jpg?v=bd92ba92"
   }
->>>>>>> 7dd5b3c (Complete update)
 };
